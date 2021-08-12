@@ -2,8 +2,6 @@ package com.renmoney_ha.configurations.security;
 
 public class SecurityAuthConstants {
     public static final long TOKEN_EXPIRATION_TIME = 864_000_000;
-    public static final String TOKEN_PREFIX = "Bearer ";
-    public static final String HEADER_STRING = "Authorization";
     public static final String[] PUBLIC_URIS = new String[]{
             "/",
             // -- Swagger UI v3 (OpenAPI) Start
@@ -21,5 +19,7 @@ public class SecurityAuthConstants {
             "/swagger-ui/#/**",
             // -- Swagger UI v3 (OpenAPI) End
             "/v1/login",
+            "/v1/register",
+
     };
 }
