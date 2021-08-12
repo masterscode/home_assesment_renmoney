@@ -61,6 +61,13 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!--	MODEL   MAPPER START	-->
+		<dependency>
+			<groupId>org.modelmapper</groupId>
+			<artifactId>modelmapper</artifactId>
+			<version>2.4.4</version>
+		</dependency>
+		<!-- MODEL MAPPER DEPENDENCIES END-->
 		<!--	SECURITY DEPENDENCIES START	-->
 		<dependency>
 			<groupId>org.springframework.security</groupId>

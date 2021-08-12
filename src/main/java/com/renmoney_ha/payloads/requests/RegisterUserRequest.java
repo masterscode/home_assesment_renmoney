@@ -18,20 +18,13 @@ public class RegisterUserRequest {
     @NotNull(message = "last name cannot be empty")
     private String lastName;
 
-    @NotNull(message = "email cannot be empty")
-    @Email(message = "must be email")
+    @NotNull(message = "Email Field should not be empty")
+    @Email(message = "Invalid Email")
     private String email;
 
-    private String gender;
 
-    private String dateOfBirth;
-
-    @NotNull(message = "password cannot be empty")
+    @NotNull(message = "Password cannot be empty")
     @Size(min = 6, max = 24)
     private String password;
-
-    @NotNull(message = "password cannot be empty")
-    @Size(min = 6, max = 24)
-    private String confirmPassword;
 
 }

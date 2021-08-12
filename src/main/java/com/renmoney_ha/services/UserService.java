@@ -1,14 +1,9 @@
 package com.renmoney_ha.services;
 
-import org.springframework.security.core.userdetails.UserDetails;
+import com.renmoney_ha.payloads.requests.RegisterUserRequest;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
 
-@Service
-public class UserService implements UserDetailsService {
-    @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        return null;
-    }
+public interface UserService extends UserDetailsService {
+    ResponseEntity<?> registerUser(RegisterUserRequest request);
 }

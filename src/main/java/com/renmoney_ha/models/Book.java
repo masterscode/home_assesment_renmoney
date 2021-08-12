@@ -19,18 +19,4 @@ public class Book extends BaseEntity{
     private String dimension;
     private Integer length;
     private Double price;
-
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-//        Book book = (Book) o;
-//
-//        return Objects.equals(getId(), book.getId());
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        return 967762358;
-//    }
 }
