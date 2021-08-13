@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
+import javax.validation.ValidationException;
 import java.time.LocalDateTime;
 import java.util.NoSuchElementException;
 
@@ -45,5 +46,14 @@ public class Exceptions extends ResponseEntityExceptionHandler {
                 LocalDateTime.now(),
                 "Required Entity Not Found"
         ), HttpStatus.NOT_MODIFIED);
+    }
+
+    @ExceptionHandler(value = ValidationException.class)
+    protected ResponseEntity<Object> handleValidation(EntityNotFoundException ex) {
+        return new ResponseEntity<>(new RestExceptionResponse(
+                HttpStatus.BAD_REQUEST,
+                LocalDateTime.now(),
+                "Data constraint violation"
+        ), HttpStatus.BAD_REQUEST);
     }
 }

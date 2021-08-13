@@ -12,7 +12,7 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RegisterUserRequest implements Serializable {
+public class UserRegistrationRequest implements Serializable {
     @NotBlank(message = "first name cannot be empty")
     private String firstName;
 

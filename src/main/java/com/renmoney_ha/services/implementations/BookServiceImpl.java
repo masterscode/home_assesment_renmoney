@@ -15,6 +15,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityExistsException;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import java.time.LocalDate;
@@ -38,7 +39,7 @@ public class BookServiceImpl implements BookService {
     public Book addBook(BookRequest request) {
         validateRequestBody(request);
         Boolean bookExists = repository.existsBookByIsbn(request.getIsbn());
-        if (Boolean.FALSE.equals(bookExists)) throw new NoSuchElementException();
+        if (Boolean.TRUE.equals(bookExists)) throw new EntityExistsException();
         Book newBook = modelmapper.map(request, Book.class);
         return repository.save(newBook);
     }
@@ -75,10 +76,9 @@ public class BookServiceImpl implements BookService {
         borrow.setBorrowDate(LocalDate.now());
         borrowedBooksRepository.save(borrow);
 
-        booksToBorrow.forEach(book -> {
-            book.setIsBorrowed(true);
-            repository.save(book);
-        });
+        booksToBorrow.forEach(book -> book.setIsBorrowed(true));
+        repository.saveAll(booksToBorrow);
+
 
         return booksToBorrow;
     }
