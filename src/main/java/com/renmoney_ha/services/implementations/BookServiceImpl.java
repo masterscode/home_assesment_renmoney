@@ -20,6 +20,7 @@ import javax.validation.Validator;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -37,7 +38,7 @@ public class BookServiceImpl implements BookService {
     public Book addBook(BookRequest request) {
         validateRequestBody(request);
         Boolean bookExists = repository.existsBookByIsbn(request.getIsbn());
-        if (Boolean.FALSE.equals(bookExists)) throw new BadCredentialsException("");
+        if (Boolean.FALSE.equals(bookExists)) throw new NoSuchElementException();
         Book newBook = modelmapper.map(request, Book.class);
         return repository.save(newBook);
     }
@@ -73,6 +74,7 @@ public class BookServiceImpl implements BookService {
         borrow.setBooks(booksToBorrow);
         borrow.setBorrowDate(LocalDate.now());
         borrowedBooksRepository.save(borrow);
+
         booksToBorrow.forEach(book -> {
             book.setIsBorrowed(true);
             repository.save(book);
