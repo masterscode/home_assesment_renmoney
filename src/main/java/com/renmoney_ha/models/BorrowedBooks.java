@@ -5,15 +5,18 @@ import lombok.Setter;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Setter
 @Getter
 public class BorrowedBooks extends BaseEntity {
-    @OneToOne(targetEntity = Book.class)
-    private Book book;
+    @OneToMany(targetEntity = Book.class)
+    private List<Book> books;
 
     @OneToOne(targetEntity = User.class)
     private User user;
@@ -21,7 +24,5 @@ public class BorrowedBooks extends BaseEntity {
     @Nullable
     private Date returnedDate;
 
-    private Date borrowDate;
-
-    private Boolean isBorrowed;
+    private LocalDate borrowDate;
 }

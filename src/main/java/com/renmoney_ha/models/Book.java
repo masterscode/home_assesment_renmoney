@@ -17,6 +17,7 @@ public class Book extends BaseEntity{
     private String isbn;
 
     private Boolean isDeleted = false;
+    private Boolean isBorrowed = false;
     private String author;
     private String publisher;
     private String language;

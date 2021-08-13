@@ -3,6 +3,7 @@ package com.renmoney_ha.services;
 
 import com.renmoney_ha.models.Book;
 import com.renmoney_ha.payloads.requests.BookRequest;
+import com.renmoney_ha.payloads.requests.BorrowBookRequest;
 
 import java.util.List;
 
@@ -15,7 +16,7 @@ public interface BookService {
     Book addBook(BookRequest bookRequest);
     Book updateBook(Long id, BookRequest request);
     Book deleteBook(Long id);
-    Book borrowBook(BookRequest bookRequest);
+    List<Book> borrowBook(BorrowBookRequest borrowRequest);
     List<Book> searchBook(String searchQuery);
     List<Book> getAllBooks();
 

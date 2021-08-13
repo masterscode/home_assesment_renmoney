@@ -1,7 +1,9 @@
 package com.renmoney_ha.controllers;
 
 import com.renmoney_ha.models.Book;
+import com.renmoney_ha.models.BorrowedBooks;
 import com.renmoney_ha.payloads.requests.BookRequest;
+import com.renmoney_ha.payloads.requests.BorrowBookRequest;
 import com.renmoney_ha.services.BookService;
 import com.sun.net.httpserver.Authenticator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,9 +41,11 @@ public class BookController {
         );
     }
 
-    @GetMapping("/borrow/{id}")
-    public String borrowBook(@PathVariable Long id){
-        return null;
+    @PatchMapping("/borrow")
+    public ResponseEntity<List<Book>> borrowBook(@RequestBody BorrowBookRequest request) {
+        return ResponseEntity.ok(
+                service.borrowBook(request)
+        );
     }
 
     @PostMapping
