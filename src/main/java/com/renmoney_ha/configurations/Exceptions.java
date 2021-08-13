@@ -3,7 +3,6 @@ package com.renmoney_ha.configurations;
 import com.renmoney_ha.payloads.response.RestExceptionResponse;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,21 +27,6 @@ public class Exceptions extends ResponseEntityExceptionHandler {
                 LocalDateTime.now(),
                 String.format("Required parameter is missing [ %s ]", request.getParameterNames())
         ), HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler(value = ResourceNotFoundException.class)
-    public ResponseEntity<String> resourceNotFoundException(ResourceNotFoundException exception){
-        HttpStatus status = HttpStatus.NOT_FOUND;
-        return new ResponseEntity<>(exception.getMessage(), status);
-    }
-
-    @ExceptionHandler(value = EntityNotFoundException.class)
-    protected ResponseEntity<Object> handleEntityNotFound(EntityNotFoundException ex) {
-        return new ResponseEntity<>(new RestExceptionResponse(
-                HttpStatus.BAD_REQUEST,
-                LocalDateTime.now(),
-                "Required Entity Not Found"
-        ), HttpStatus.NOT_MODIFIED);
     }
 
     @ExceptionHandler(value = EntityExistsException.class)
