@@ -15,11 +15,14 @@ public class SecurityAuthConstants {
             "/v3/api-docs/**",
             "/swagger-ui/**",
             "/swagger-ui/login/",
-            "/swagger-ui/api/login/",
+            "/swagger-ui/v1/login",
+            "/swagger-ui/v1/register",
+
             "/swagger-ui/#/**",
             // -- Swagger UI v3 (OpenAPI) End
-            "/v1/login",
+//            "/v1/login",
             "/v1/register",
-
+            "/v1/login",
+            "/h2-console"
     };
 }

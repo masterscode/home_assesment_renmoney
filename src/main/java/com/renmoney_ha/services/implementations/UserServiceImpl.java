@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        return repository.findByEmail(s).orElseGet(User::new);
+        return repository.findByEmail(s).orElseThrow();
     }
 
     @Override

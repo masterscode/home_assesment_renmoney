@@ -20,7 +20,7 @@ public class IndexController {
                         "lend books to users and search for books in the library",
                 "Emmanuel Ogbinaka",
                 LocalDate.of(2021,8,13),
-                "http://localhost:8080/swagger-ui/"
+                "http://localhost/swagger-ui/"
         );
     }
 }

@@ -11,17 +11,16 @@ import com.renmoney_ha.repositories.UserRepository;
 import com.renmoney_ha.services.BookService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityExistsException;
 import javax.validation.ConstraintViolation;
+import javax.validation.ValidationException;
 import javax.validation.Validator;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -104,6 +103,6 @@ public class BookServiceImpl implements BookService {
 
     private void validateRequestBody(BookRequest request) {
         Collection<ConstraintViolation<BookRequest>> result = validator.validate(request);
-        if (!result.isEmpty()) throw new BadCredentialsException("");
+        if (!result.isEmpty()) throw new ValidationException();
     }
 }
