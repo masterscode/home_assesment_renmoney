@@ -1,8 +1,10 @@
 package com.renmoney_ha.services;
 
 
+import com.renmoney_ha.models.Book;
 import com.renmoney_ha.payloads.requests.BookRequest;
-import org.springframework.http.ResponseEntity;
+
+import java.util.List;
 
 /**
  * The API will be used to
@@ -10,9 +12,11 @@ import org.springframework.http.ResponseEntity;
  * to users and search for books in the library.
  */
 public interface BookService {
-    ResponseEntity<?> addBook(BookRequest bookRequest);
-    ResponseEntity<?> updateBook(BookRequest bookRequest);
-    ResponseEntity<?> deleteBook(BookRequest bookRequest);
-    ResponseEntity<?> borrowBook(BookRequest bookRequest);
+    Book addBook(BookRequest bookRequest);
+    Book updateBook(Long id, BookRequest request);
+    Book deleteBook(Long id);
+    Book borrowBook(BookRequest bookRequest);
+    List<Book> searchBook(String searchQuery);
+    List<Book> getAllBooks();
 
 }

@@ -31,7 +31,7 @@ private final String ref = "Bearer";
                 .securitySchemes(List.of(apiKey()))
                 .useDefaultResponseMessages(false)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.decagon.safariwebstore"))
+                .apis(RequestHandlerSelectors.basePackage("com.renmoney_ha"))
                 .paths(PathSelectors.any())
                 .build();
     }
@@ -71,7 +71,7 @@ private final String ref = "Bearer";
                         "books to users and search for books in the library.",
                 "v1",
                 "Free to use",
-                new Contact("Emmanuel Ogbinaka", "http", "ogbinakaemmanuel@gmail.com"),
+                new Contact("Emmanuel Ogbinaka", null, "ogbinakaemmanuel@gmail.com"),
                 null,
                 null,
                 Collections.emptyList()
