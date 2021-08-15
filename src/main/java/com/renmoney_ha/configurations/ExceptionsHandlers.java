@@ -20,7 +20,7 @@ import java.util.NoSuchElementException;
 
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ControllerAdvice
-public class Exceptions extends ResponseEntityExceptionHandler {
+public class ExceptionsHandlers extends ResponseEntityExceptionHandler {
     @Override
     protected ResponseEntity<Object> handleMissingServletRequestParameter(MissingServletRequestParameterException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         return new ResponseEntity<>(new RestExceptionResponse(
@@ -39,14 +39,14 @@ public class Exceptions extends ResponseEntityExceptionHandler {
         ), HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(value = NoSuchElementException.class)
-    protected ResponseEntity<Object> handleElementNotFound(EntityNotFoundException ex) {
-        return new ResponseEntity<>(new RestExceptionResponse(
-                HttpStatus.BAD_REQUEST,
-                LocalDateTime.now(),
-                "Required Entity Not Found"
-        ), HttpStatus.NOT_MODIFIED);
-    }
+//    @ExceptionHandler(value = NoSuchElementException.class)
+//    protected ResponseEntity<Object> handleElementNotFound(EntityNotFoundException ex) {
+//        return new ResponseEntity<>(new RestExceptionResponse(
+//                HttpStatus.BAD_REQUEST,
+//                LocalDateTime.now(),
+//                "Required Entity Not Found"
+//        ), HttpStatus.NOT_MODIFIED);
+//    }
 
     @ExceptionHandler(value = ValidationException.class)
     protected ResponseEntity<Object> handleValidation(EntityNotFoundException ex) {
