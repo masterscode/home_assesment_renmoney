@@ -38,7 +38,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
-//    private final ModelMapper modelmapper;
+    private final ModelMapper modelmapper;
     private final UserRepository repository;
     private final RoleRepository roleRepository;
     private final AuthenticationManager authenticationManager;
@@ -55,7 +55,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserRegistrationResponse registerUser(UserRegistrationRequest request) {
-        final ModelMapper modelmapper = new ModelMapper();
         User userToRegister = modelmapper.map(request, User.class);
         Role role = roleRepository.findByName(ERole.USER);
         log.info(role.toString());
