@@ -13,6 +13,8 @@ import com.renmoney_ha.services.UserService;
 import com.renmoney_ha.utils.JWTUtil;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -30,34 +32,33 @@ import javax.validation.Validator;
 import java.util.List;
 
 @Service
-@NoArgsConstructor
-@AllArgsConstructor
+@Slf4j
+//@NoArgsConstructor
+//@AllArgsConstructor
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
-    private final ModelMapper modelmapper = new ModelMapper();
-    @Autowired
-    UserRepository repository;
-    @Autowired
-    RoleRepository roleRepository;
-    @Autowired
-    private Validator validator;
-    @Autowired
-    private AuthenticationManager authenticationManager;
-    @Autowired
-    private JWTUtil jwtUtil;
-    @Autowired
-    private PasswordEncoder bCryptPasswordEncoder;
+
+//    private final ModelMapper modelmapper;
+    private final UserRepository repository;
+    private final RoleRepository roleRepository;
+    private final AuthenticationManager authenticationManager;
+    private final JWTUtil jwtUtil;
+    private final PasswordEncoder bCryptPasswordEncoder;
+
+
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        return repository.findByEmail(s).orElseThrow();
+        return repository.findByEmail(s).get();
+//        return repository.findByEmail(s).orElseThrow(UsernameNotFoundException::new);
     }
 
     @Override
     public UserRegistrationResponse registerUser(UserRegistrationRequest request) {
-        var validationResult = validator.validate(request);
-        if (!validationResult.isEmpty()) throw new ValidationException();
+        final ModelMapper modelmapper = new ModelMapper();
         User userToRegister = modelmapper.map(request, User.class);
         Role role = roleRepository.findByName(ERole.USER);
+        log.info(role.toString());
         userToRegister.setPassword(bCryptPasswordEncoder.encode(request.getPassword()));
         userToRegister.setRoles(List.of(role));
 
@@ -68,9 +69,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public LoginResponse loginUser(LoginRequest request) {
-
-        var validationResult = validator.validate(request);
-        if (!validationResult.isEmpty()) throw new ValidationException();
 
         Authentication authentication = authenticationManager
                 .authenticate(

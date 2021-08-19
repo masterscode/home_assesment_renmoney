@@ -36,7 +36,6 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book addBook(BookRequest request) {
-        validateRequestBody(request);
         Boolean bookExists = repository.existsBookByIsbn(request.getIsbn());
         if (Boolean.TRUE.equals(bookExists)) throw new EntityExistsException();
         Book newBook = modelmapper.map(request, Book.class);
@@ -45,7 +44,6 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book updateBook(Long id, BookRequest request) {
-        validateRequestBody(request);
         Book bookToUpdate = repository.findById(id).orElseThrow();
         Book updatedBook = modelmapper.map(request, Book.class);
         updatedBook.setId(bookToUpdate.getId());

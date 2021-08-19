@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 
@@ -42,21 +43,21 @@ public class BookController {
     }
 
     @PatchMapping("/borrow")
-    public ResponseEntity<List<Book>> borrowBook(@RequestBody BorrowBookRequest request) {
+    public ResponseEntity<List<Book>> borrowBook(@Valid @RequestBody BorrowBookRequest request) {
         return ResponseEntity.ok(
                 service.borrowBook(request)
         );
     }
 
     @PostMapping
-    public ResponseEntity<Book> addBook(@RequestBody BookRequest book){
+    public ResponseEntity<Book> addBook(@Valid @RequestBody BookRequest book){
         return ResponseEntity.ok(
                 service.addBook(book)
         );
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Book> updateBook(@PathVariable Long id, @RequestBody BookRequest requestBody){
+    public ResponseEntity<Book> updateBook(@PathVariable Long id, @Valid @RequestBody BookRequest requestBody){
         return ResponseEntity.ok(
                 service.updateBook(id, requestBody)
         );
