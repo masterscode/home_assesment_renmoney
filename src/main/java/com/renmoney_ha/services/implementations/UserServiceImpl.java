@@ -17,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -33,9 +34,7 @@ import java.util.List;
 
 @Service
 @Slf4j
-//@NoArgsConstructor
-//@AllArgsConstructor
-@RequiredArgsConstructor
+@RequiredArgsConstructor(onConstructor = @__(@Lazy))
 public class UserServiceImpl implements UserService {
 
     private final ModelMapper modelmapper;
@@ -62,8 +61,12 @@ public class UserServiceImpl implements UserService {
         userToRegister.setRoles(List.of(role));
 
         User registeredUser = repository.save(userToRegister);
-        return modelmapper.map(registeredUser, UserRegistrationResponse.class);
+        var response =  modelmapper.map(registeredUser, UserRegistrationResponse.class);
+        List<String> roles = registeredUser.getRoles().stream().map(registered->registered.getAuthority()).toList();
 
+        response.setRoles(roles);
+
+        return response;
     }
 
     @Override
@@ -86,6 +89,10 @@ public class UserServiceImpl implements UserService {
                 .map(GrantedAuthority::getAuthority)
                 .toList();
 
-        return new LoginResponse(jwtToken, roles);
+        var response =  modelmapper.map(loggedInUser, LoginResponse.class);
+        response.setToken(jwtToken);
+        response.setRoles(roles);
+
+        return response;
     }
 }

@@ -3,6 +3,7 @@ package com.renmoney_ha.configurations.security;
 import com.renmoney_ha.services.UserService;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,19 +18,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @EnableWebSecurity
-@AllArgsConstructor
-@NoArgsConstructor
-//@EnableGlobalMethodSecurity(
-//        prePostEnabled = true)
+@RequiredArgsConstructor
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-    @Autowired
-    private UserService userDetailsService;
+    private final UserService userDetailsService;
 
-    @Autowired
-    private JWTRequestFilter jwtRequestFilter;
+    private final JWTRequestFilter jwtRequestFilter;
 
-    @Autowired
-    private PasswordEncoder bCryptEncoder;
+    private final PasswordEncoder bCryptEncoder;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
